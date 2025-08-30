@@ -2,8 +2,7 @@
 import typer
 from partyapp.db.base import Base, engine
 from partyapp.db.models import *  # モデルを読み込む
-from sqlalchemy import create_engine, text
-from partyapp.config import DATABASE_URL
+from sqlalchemy import text
 
 cli = typer.Typer()
 
@@ -15,7 +14,7 @@ def init_db():
 
 @cli.command()
 def drop_db():
-    """partyappdbのDBスキーマを削除（開発用）"""
+    """partyappdbのDBスキーマを全削除（開発用）"""
     Base.metadata.drop_all(bind=engine)
     print("🗑️ Database schema dropped")
 
@@ -28,6 +27,17 @@ def connect_db():
             print("✅ 接続成功！MariaDBバージョン:", version)
     except Exception as e:
         print("❌ 接続失敗:", e)
+
+@cli.command()
+def list_models():
+    """partyappdbのモデル一覧を表示"""
+    if not Base.metadata.tables:
+        print("⚠️ モデルが読み込まれていません。")
+        return
+
+    print("📋 定義済みモデル一覧:")
+    for name, table in Base.metadata.tables.items():
+        print(f"- {name}")
 
 if __name__ == "__main__":
     cli()
