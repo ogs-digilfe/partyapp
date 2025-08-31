@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "partyapp"    # PyPIで配布するときの名前（プロジェクト専用でpypiには登録しないため不要だが、nameは必須）
+version = "0.1.0"
+description = "Partyapp CLI and DB tools"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [     # cli.pyでimportされているモジュールがインストールされているかチェック。
+  "typer>=0.12",
+  "sqlalchemy>=2.0",
+  "pymysql>=1.1",             
+]
+
+[project.scripts]
+pa = "partyapp.cli:cli"  # ← これで `pa` コマンドができる
+
+[tool.setuptools.packages.find]
+include = ["partyapp*"]         # フラットレイアウトの場合はこれでOK

@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: partyapp
+Version: 0.1.0
+Summary: Partyapp CLI and DB tools
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: typer>=0.12
+Requires-Dist: sqlalchemy>=2.0
+Requires-Dist: pymysql>=1.1
